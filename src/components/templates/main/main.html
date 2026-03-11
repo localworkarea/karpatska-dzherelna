@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="[[lang]]" class="desktop landscape">
+	<include src="@components/layout/head/head.html" locals='{
+		"title":"[[title]]", 
+		"preloader": {
+			"enable":"[[preloader.enable]]",
+			"once":"[[preloader.once]]"
+		},
+		"keywords":"[[keywords]]", 
+		"description":"[[description]]"
+	}'>
+	</include>
+	<script type="module" src="@components/templates/main/main.js"></script>
+	<link rel="stylesheet" href="@components/templates/main/main.scss">
+	<body class="pace-done">
+		<div class="wrapper">
+			<!-- <block name="header"></block> -->
+			<block name="main"></block>
+			<!-- <block name="footer"></block> -->
+		</div>
+		<!-- <block name="popup"></block> -->
+		<script src="@files/jquery.min.js"></script>
+		<script src="@files/jquery.main.js"></script>
+		<script type="module" src="@js/app.js"></script>
+	</body>
+</html>

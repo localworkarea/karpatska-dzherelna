@@ -1,6 +1,6 @@
 
 import Swiper from 'swiper';
-import { Navigation, Pagination, EffectCoverflow } from 'swiper/modules';
+import { Navigation, Pagination, EffectCoverflow, EffectFade } from 'swiper/modules';
 /*
 Navigation, Pagination, Autoplay, 
 EffectFade, Lazy, Manipulation, EffectCards, EffectCoverflow
@@ -35,14 +35,6 @@ function initSliders() {
 		  // },
 
 			effect: 'coverflow',
-  		// coverflowEffect: {
-			// 	depth: 150,
-			// 	modifier: 4.5,
-			// 	scale: 1,
-  		//   rotate: 0,
-  		//   slideShadows: true,
-			// 	stretch: 0
-  		// },
 
 			pagination: {
 				el: '.sport-info__pagination',
@@ -90,9 +82,7 @@ function initSliders() {
 				}
 			}
 		});
-
 		const videos = document.querySelectorAll('.sport-info__video');
-
 		videos.forEach(video => {
 		
 			const slide = video.closest('.swiper-slide');
@@ -122,6 +112,44 @@ function initSliders() {
 			
 			});
 		
+		});
+	}
+	if (document.querySelector('.sport-formats__slider')) { 
+		new Swiper('.sport-formats__slider', { 
+			modules: [Navigation, Pagination, EffectFade],
+			observer: true,
+			observeParents: true,
+			slidesPerView: 1,
+			spaceBetween: 0,
+			speed: 300,
+
+				effect: 'fade',
+				 fadeEffect: {
+					 crossFade: true
+				 },
+			// loop: true,
+			//preloadImages: false,
+			//lazy: true,
+			pagination: {
+				el: '.sport-formats__slider .swiper-pagination',
+				clickable: true,
+			},
+			
+			navigation: {
+				prevEl: '.sport-formats__slider .swiper-button-prev',
+				nextEl: '.sport-formats__slider .swiper-button-next',
+				addIcons: false, 
+			},
+			breakpoints: {
+				320: {
+				},
+				820: {
+				}
+			},
+			// Події
+			on: {
+
+			}
 		});
 	}
 	// if (document.querySelector('.swiper')) { 

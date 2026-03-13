@@ -114,44 +114,94 @@ function initSliders() {
 		
 		});
 	}
-	if (document.querySelector('.sport-formats__slider')) { 
-		new Swiper('.sport-formats__slider', { 
-			modules: [Navigation, Pagination, EffectFade],
-			observer: true,
-			observeParents: true,
-			slidesPerView: 1,
-			spaceBetween: 0,
-			speed: 300,
 
-				effect: 'fade',
-				 fadeEffect: {
-					 crossFade: true
-				 },
+	const sportFormatsMQ = window.matchMedia("(max-width: 820.98px)");
+	let sportFormatsSwiper;
+
+	function initSportFormatsSlider() {
+
+		if (sportFormatsSwiper) sportFormatsSwiper.destroy(true, true);
+
+		sportFormatsSwiper = new Swiper('.sport-formats__slider', {
+
+			modules: [Navigation, Pagination, EffectFade],
+			slidesPerView: 1,
+			speed: 700,
+
+			effect: sportFormatsMQ.matches ? 'slide' : 'fade',
 			// loop: true,
-			//preloadImages: false,
-			//lazy: true,
+			// fadeEffect: {
+				// crossFade: true
+			// },
+
 			pagination: {
 				el: '.sport-formats__slider .swiper-pagination',
 				clickable: true,
 			},
-			
+
 			navigation: {
 				prevEl: '.sport-formats__slider .swiper-button-prev',
 				nextEl: '.sport-formats__slider .swiper-button-next',
-				addIcons: false, 
+				addIcons: false
 			},
 			breakpoints: {
 				320: {
+						spaceBetween: 20,
 				},
 				820: {
+						spaceBetween: 0,
 				}
 			},
-			// Події
-			on: {
 
-			}
 		});
 	}
+
+	initSportFormatsSlider();
+	sportFormatsMQ.addEventListener('change', initSportFormatsSlider);
+
+	const sportSocialMQ = window.matchMedia("(max-width: 768.98px)");
+	let sportSocialSwiper;
+
+	function initSportSocialSlider() {
+
+		if (sportSocialMQ.matches) {
+
+			if (!sportSocialSwiper) {
+				sportSocialSwiper = new Swiper('.sport-social__slider', {
+
+					modules: [Navigation, Pagination],
+					observer: true,
+					observeParents: true,
+					speed: 500,
+
+					slidesPerView: 1.5,
+					spaceBetween: 20,
+
+					pagination: {
+						el: '.sport-social__slider .swiper-pagination',
+						clickable: true,
+					},
+
+					navigation: {
+						prevEl: '.sport-social__slider .swiper-button-prev',
+						nextEl: '.sport-social__slider .swiper-button-next',
+					}
+
+				});
+			}
+
+		} else {
+
+			if (sportSocialSwiper) {
+				sportSocialSwiper.destroy(true, true);
+				sportSocialSwiper = null;
+			}
+
+		}
+	}
+
+	initSportSocialSlider();
+	sportSocialMQ.addEventListener('change', initSportSocialSlider);
 	// if (document.querySelector('.swiper')) { 
 	// 	new Swiper('.swiper', { 
 	// 		modules: [Navigation, Pagination],

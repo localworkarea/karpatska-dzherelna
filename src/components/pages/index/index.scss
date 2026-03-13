@@ -7,7 +7,6 @@
 
 .sport-wrapper {
 	&::before {
-		// isolation: isolate; 
 		content:'';
 		@extend %absoluteBgImage;
 		z-index: -1;
@@ -20,7 +19,6 @@
 			 height: auto; 
 			 aspect-ratio: 476/335;
 			 top: 70px;
-			// display: none;
 		}
 	}
 }
@@ -33,9 +31,10 @@
 	transform: translate(-50%,0);
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	padding-inline: 30px;
 	width: 100%;
-	gap: 38px;
+	gap: 23px;
 	top: 0; 
 	padding-top: 107px;
 	margin-bottom: 37px;
@@ -46,29 +45,36 @@
 		margin-bottom: 0;
 	}
 	@media (min-width:toEm($mobileSmall)){
-		gap: 50px;
-		padding-inline: 0;
-		max-width: 312px;
+		gap: 40px;
+		// padding-inline: 0;
+		// max-width: 312px;
 	}
 	@media (max-width:$mobileSmall){
 		  
 	}
 		// .sport-logo__img
 		&__img {
+			flex: 1;
 			img {
 				width: 100%;
 				height: auto;
 			}
-			&:nth-child(1) {
+			&.img-1 {
+				max-width: 72px;
 				@media (min-width:toEm($mobileSmall)){
-					order: 3; 
-					max-width: 123px;
+					max-width: 87px;
 				}
 			}
-			&:nth-child(3) {
+			&.img-2 {
+				max-width: 80px;
 				@media (min-width:toEm($mobileSmall)){
-					order: 1; 
-					max-width: 77px;
+					max-width: 116px;
+				}
+			}
+			&.img-3 {
+				max-width: 80px;
+				@media (min-width:toEm($mobileSmall)){
+					max-width: 123px;
 				}
 			}
 		}
@@ -80,7 +86,7 @@
 			height: 14px;
 			flex: 0 0 14px;
 			@media (min-width:toEm($mobileSmall)){
-				order: 2;
+				// order: 2;
 				width: 12px;
 				height: 12px;
 				flex: 0 0 12px;
@@ -90,9 +96,9 @@
 
 %mbSection {
 	margin-bottom: 70px;
-		@media (min-width:toEm(1000.98)){
-			margin-bottom: 0px;
-		}
+	@media (min-width:toEm(1000.98)){
+		margin-bottom: 0px;
+	}
 }
 
 .sport-section {
@@ -114,8 +120,7 @@
 	border-radius: 20px;
 	border: 2px solid rgb(255, 255, 255, 0.5);
 	overflow: hidden;
-	// padding: 2px;
-	background: linear-gradient(225deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0.4) 100%);
+	background: linear-gradient(11deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.2) 100%);
 }
 
 .sport-info {
@@ -276,50 +281,100 @@
 
 .sport-strength {
 			@extend %mbSection;
+		@media (max-width: toEm(1000.98)){
+			  position: relative;
+		}
+		// .sport-strength__bgs
+		&__bgs {
+			position: absolute;
+			inset: 0;
+			z-index: 0;
+			@media (min-width:toEm(1000.98)){
+				overflow: hidden;
+			}
+		}
+
+		// .sport-strength__bg
+		&__bg {
+			position: absolute;
+			display: block;
+			@extend %bgImage;
+			aspect-ratio: 320/326;
+			background-size:contain;
+			width: 160px;
+			height: auto;
+			pointer-events: none;
+			background-image: url("@img/gloves/glow-1.png");
+			@media (min-width:toEm(1000.98)){
+				width: 450px;
+			}
+		}
+
+		// .sport-strength__bg--1
+		&__bg--1 {
+			left: 5%;
+			transform: translate(-50%,0) scaleX(-1);
+			
+			@media (min-width:toEm(1000.98)){
+				bottom: 0%;
+				transform: translate(-22%,10%) scaleX(-1);
+			}
 			@media (max-width: toEm(1000.98)){
+				top: calc(100% / 3.7);
+			}
+		}
+
+		// .sport-strength__bg--2
+		&__bg--2 {
+			right: 5%;
+			transform: translate(50%,0);
+			@media (min-width:toEm(1000.98)){
+				top: 0%;
+				right: 0%;
+				transform: translate(33%,-5%) rotate(-8deg);
+			}
+			@media (max-width: toEm(1000.98)){
+				top: 0;
+				transform: translate(50%,-30%);
+			}
+		}
+
+		// .sport-strength__bg--3
+		&__bg--3 {
+			left: 5%;
+			bottom: 0;
+			transform: translate(-50%,50%) scaleX(-1);
+			@media (min-width:toEm(820.98)){
+				display: none;
+			}
+		}
+		
+		// .sport-strength__bg--4
+		&__bg--4 {
+			right: 5%;
+			bottom: calc(100% / 3.7);
+			transform: translate(50%,0);
+			@media (min-width:toEm(820.98)){
+				display: none;
+			}
+		}
+
+			// .sport-strength__container
+			&__container {
 				position: relative;
-			}
-			&::before,
-			&::after {
-				content:'';
-				position: absolute;
-				z-index: 0;
-				@extend %bgImage;
-				aspect-ratio: 320/326;
-				background-size:contain;
-				width: 160px;
-				height: auto;
-				pointer-events: none;
-				background-image: url("@img/gloves/glow-1.png");
-				@media (min-width:toEm(1000.98)){
-					bottom: 0;
-					width: 320px;
+				z-index: 1;
+				// overflow: hidden;
+				// &::before,
+				// &::after {
+				// 	content:'';
+				
+				// }
+				&:before {
+					
 				}
-			}
-			&:before {
-				left: 5%;
-				transform: translate(-50%,0) scaleX(-1);
-				@media (min-width:toEm(1000.98)){
-					left: 12%;
+				&::after {
+				
 				}
-				@media (max-width: toEm(1000.98)){
-					  top: calc(100% / 3.7);
-				}
-			}
-			&::after {
-				right: 5%;
-				transform: translate(50%,0);
-				@media (min-width:toEm(1000.98)){
-					right: 12%;
-				}
-				@media (max-width: toEm(1000.98)){
-					top: 0;
-					transform: translate(50%,-30%);
-				}
-			}
-		// .sport-strength__container
-		&__container {
-			// position: relative;
 		}
 
 		// .sport-strength__wrapper
@@ -438,25 +493,32 @@
 		}
 }
 
-// .test {
-// 	position: relative;
-// 	mix-blend-mode: screen;
-// 	background-color: var(--blue);
-// }
 
 .imgs {
 		position: relative;
 			aspect-ratio: 196/320;
 			max-width: 196px;
+			@media (min-width:toEm(820.98)){
+				transition: transform .65s ease 0.3s, opacity .65s ease 0.3s;
+				opacity: 0;
+				transform: translate(0,0);
+			}
 			&::before {
 				content:'';
 				@extend %brCorner;
 				position: absolute;
 				width: 100%;
 				height: auto;
-				aspect-ratio: 1;
-				top: 25%;
+				aspect-ratio: 142/176;
+				top: 15%;
 				opacity: .6;
+				transition: transform .65s ease 0.3s;
+				transform: translate(0,0);
+				@media (min-width:toEm($mobileSmall)){
+					top: 25%;
+					aspect-ratio: 1;
+					  
+				}
 			}
 			img {
 				position: relative;
@@ -468,10 +530,11 @@
 }
 
 .sport-formats {
-	@extend %bgImage;
-	@media (min-width:toEm(1000.98)){
-		background-image: url('@img/bgs/bg-2-pc.png');
-	}	
+		@extend %mbSection;
+		@extend %bgImage;
+		@media (min-width:toEm(1000.98)){
+			background-image: url('@img/bgs/bg-2-pc.png');
+		}	
 		// .sport-formats__container
 		&__container {
 		}
@@ -484,53 +547,144 @@
 		// .sport-formats__title
 		&__title {
 			text-align: center;
+			margin-bottom: 16px;
 		}
 
 		// .sport-formats__slider
 		&__slider {
+			position: relative;
+			&.swiper {
+				overflow: visible;
+				@media (min-width:toEm(820.98)){
+					overflow: hidden;
+				}
+			}
 		}
-
+		
 		// .sport-formats__wrapper
 		&__wrapper {
+			position: relative;
+			z-index: 0;
+			margin-bottom: 20px;
+			@media (min-width:toEm($mobileSmall)){
+				margin-bottom: 0px;
+			}
 		}
 
 		// .sport-formats__slide
 		&__slide {
 			display: grid;
-			grid-template-columns: 1fr auto auto;
+			grid-template-columns: 1fr;
 			gap: 20px;
+
+			@media (min-width:toEm(820.98)){
+				&.swiper-slide-active {
+					.sport-formats__texts,
+					.sport-formats__img,
+					.sport-formats__img-2,
+					.sport-formats__img-3 {
+						opacity: 1;
+					}
+				}
+				&.swiper-slide-prev {
+					.sport-formats__img {
+						transform: translate(0%,-100%);
+						transition-delay: 0s;
+						&::before {
+							transform: translate(0%,-100%);
+							transition-delay: 0s;
+						}
+					}
+					.sport-formats__img-2 {
+						transform: translate(0%,-100%);
+						transition-delay: 0.05s;
+						&::before {
+							transform: translate(0%,-100%);
+							transition-delay: 0.05s;
+						}
+					}
+					.sport-formats__img-3 {
+						transform: translate(0%,-100%);
+						transition-delay: 0.1s;
+						&::before {
+							transform: translate(0%,-100%);
+							transition-delay: 0.1s;
+						}
+					}
+				}
+				&.swiper-slide-next {
+					.sport-formats__img {
+						transform: translate(0%,100%);
+						transition-delay: 0s;
+							&::before {
+							transform: translate(0%,100%);
+							transition-delay: 0s;
+						}
+					}
+					.sport-formats__img-2 {
+						transform: translate(0%,100%);
+						transition-delay: 0.05s;
+							&::before {
+							transform: translate(0%,-100%);
+							transition-delay: 0.05s;
+						}
+					}
+					.sport-formats__img-3 {
+						transform: translate(0%,100%);
+						transition-delay: 0.1s;
+							&::before {
+							transform: translate(0%,-100%);
+							transition-delay: 0.1s;
+						}
+					}
+				}
+			}
+			@media (min-width:toEm(820.98)){
+				grid-template-columns: 1fr auto auto;
+			}
 		}
 
 		// .sport-formats__info
 		&__info {
 			display: grid;
-			grid-template-columns: 43% auto;
+			grid-template-columns: 41% auto;
 			gap: 20px;
+			@media (min-width:toEm($mobileSmall)){
+				grid-template-columns: 43% auto;
+			}
 		}
 
 		// .sport-formats__img
 		&__img {
-	
+			
 		}
 
 
 		// .sport-formats__texts
 		&__texts {
+			@media (min-width:toEm(820.98)){
+				opacity: 0;
+				transition: opacity .65s ease 0s;
+			}
 		}
 
 		// .sport-formats__title-sl
 		&__title-sl {
 			p {
 				position: relative;
-				padding-top: 30%;
+				padding-top: 15%;
 				font-family: "Oswald",sans-serif;
 				text-transform: uppercase;
-				 font-weight: 500;
-				 font-size: 32px;
-				 color: var(--primary);
-				 margin: 0;
-				 &:not(:last-child) {
-					margin-bottom: 20px;
+				font-weight: 500;
+				font-size: 32px;
+				color: var(--primary);
+				margin: 0;
+				&:not(:last-child) {
+					 margin-bottom: 20px;
+				}
+				@media (min-width:toEm($mobileSmall)){
+						padding-top: 30%;
+						
 				 }
 			}
 		}
@@ -541,33 +695,288 @@
 
 		// .sport-formats__img-2
 		&__img-2 {
+			display: none;
+			@media (min-width:toEm(820.98)){
+				display: block;
+			}
 			img {
 			}
 		}
-
+		
 		// .sport-formats__img-3
 		&__img-3 {
+			display: none;
+			@media (min-width:toEm(820.98)){
+				display: block;
+			}
 			img {
 			}
 		}
 
 		// .sport-formats__pagination
 		&__pagination {
+			justify-content: center;
+			&.swiper-pagination {
+			}
+		}
+
+		// .sport-formats__navs
+		&__navs {
+			display: none;
+			@media (min-width:toEm($mobileSmall)){
+				position: absolute;
+				bottom: 15px;
+				left: 11px;
+				z-index: 2;
+				 display: flex;
+				 align-items: center;
+				 gap: 110px; 
+			}
 		}
 
 		// .sport-formats__nav
 		&__nav {
+			display: none;
+			@media (min-width:toEm($mobileSmall)){
+				 display: block; 
+			}
+			&.swiper-button-prev {
+			}
+			&.swiper-button-next {
+			}
+
 		}
 }
 
-.swiper-pagination {
-}
-.swiper-button-prev {
-}
-.swiper-button-next {
-}
-
-
 
 .sport-social {
+	padding-block: 0 60px;
+	@media (min-width:toEm(1000.98)){
+		padding-block: 120px;
+	}
+	ul,ol {
+		margin: 0;
+		li {
+			list-style: none;
+			&::before {
+				display: none;
+			}
+		}
+	}
+		// .sport-social__container
+		&__container {
+			@media (min-width:toEm($mobile)){
+				display: flex;
+				justify-content: center;
+			}
+		}
+		
+		// .sport-social__cards-slider
+		&__cards-slider {
+		}
+
+		// .sport-social__body
+		&__body {
+			// width: 100%;
+				// margin: 0 -20px 0;
+				@media (min-width:toEm($mobile)){
+					max-width: 720px;
+				}
+				// @media (min-width:toEm($mobile)){
+				// 	padding-inline: 0;
+				// 	margin-inline: 0; 
+				// }
+			}
+			
+			// .sport-social__title
+			&__title {
+				text-align: center;
+				margin-bottom: 30px;
+				@media (min-width:toEm($mobileSmall)){
+					margin-bottom: 25px; 
+				}
+			}
+			
+			// .sport-social__cards
+			&__cards {
+				display: flex;
+				overflow: auto;
+				scroll-snap-type: x mandatory;
+				gap: 20px;
+				
+				padding: 0 20px 0;
+				@media (min-width:toEm($mobile)){
+					gap: 30px;
+					 padding: 0; 
+				}
+		
+      &::-webkit-scrollbar {
+        display: none;
+      }
+		}
+
+		// .sport-social__card
+		&__card {
+	
+
+		}
+
+		// .sport-social__slider
+		&__slider {
+			margin-bottom: 30px;
+			@media (min-width:toEm($mobileSmall)){
+				margin-bottom: 0px;
+			}
+			&.swiper {
+				@media (max-width: toEm(768.98)){
+					overflow: visible;						
+				}
+			}
+		}
+
+		// .sport-social__wrapper
+		&__wrapper {
+			margin-bottom: 20px;
+			@media (min-width:toEm($mobile)){
+				 display: flex;
+				 align-items: center;
+				 flex-wrap: wrap;
+				 gap: 30px; 
+			}
+		}
+
+		// .sport-social__slide
+		&__slide {
+				position: relative;
+			  // width: 56%;
+				// max-width: 56%;
+				// scroll-snap-align: center;
+				padding: 0 10px 10px 10px;
+				// overflow-y: hidden;
+				// height: 100%;
+				&::after {
+					content:'';
+					@extend %brCorner;
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					width: 100%;
+					height: auto;
+					aspect-ratio: 1;
+				}
+				img {
+					width: 100%;
+					height: auto;
+				}
+				@media (min-width:toEm($mobile)){
+					max-width: 220px;
+					// width: unset;
+				}
+		}
+
+				// .sport-social__pagination
+		&__pagination {
+			justify-content: center;
+		}
+
+		// .sport-social__card-link
+		&__card-link {
+			position: relative;
+			z-index: 1;
+			img {
+
+			}
+		}
+
+		// .sport-social__links
+		&__links {
+			display: flex;
+			align-items: center;
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 30px;
+		}
+
+		// .sport-social__link
+		&__link {
+			@media (min-width:toEm($mobile)){
+				flex: 1;
+			}
+		}
+
+		// .sport-social__btn
+		&__btn {
+		}
+}
+
+.btn-social {
+	position: relative;
+	
+	text-decoration: unset;
+	color: var(--primary);
+	transition: unset;
+	
+	@media (min-width:toEm($mobile)){
+		
+			border-radius: 20px;
+			overflow: hidden;
+			background:linear-gradient(11deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.1) 100%);
+			
+			display: flex;
+			align-items: center;
+			width: 100%;
+			max-width: 220px;
+			gap: 15px;
+		
+	}
+
+	@media (any-hover: hover){
+		&:hover{
+			.btn-social__t {
+				color: var(--blue);
+			}
+		}
+	}
+
+	
+	&::before {
+		content:'';
+		position: absolute;
+		z-index: 0;
+		inset: 0;
+		border-radius: 20px;
+		border: 2px solid rgb(255, 255, 255, 0.2);
+		@media (max-width:toEm($mobile)){
+			 display: none; 
+		}
+	}
+
+	@media (min-width:toEm($mobile)){
+	}
+	&--disabled {
+		pointer-events: none;
+		opacity: 0.3;
+	}
+		// .btn-social__ic
+		&__ic {
+			background-color: var(--primary);
+			max-width: 54px;
+			border-radius: 20px;
+			img {
+				width: 100%;
+				height: auto;
+				aspect-ratio: 1;
+			}
+		}
+
+		// .btn-social__t
+		&__t {
+			font-weight: 700;
+			font-size: 18px;
+			color: var(--primary);
+			transition: color .3s ease;
+			@media (max-width:toEm($mobile)){
+				 display: none; 
+			}
+		}
 }

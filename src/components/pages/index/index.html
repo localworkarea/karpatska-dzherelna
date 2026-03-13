@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="@components/pages/index/index.scss" />
 
 <main class="page page--sport">
-	<div id="wrapper">
+	<!-- <div id="wrapper">
 		<div id="header">
 			<div class="language-panel hidden-mb">
 				<div class="center">
@@ -118,18 +118,22 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 	<div data-fls-fullpage data-fls-fullpage-breakpoint="1000.98" data-fls-fullpage-bullets class="sport-wrapper">
 		<div class="sport-logo">
-			<div class="sport-logo__img">
-				<img src="@img/icons/logo-1.png" width="145" height="65" alt="Image" />
-			</div>
-			<span></span>
-			<div class="sport-logo__img">
+			<div class="sport-logo__img img-1">
 				<img src="@img/icons/logo-2.png" width="91" height="65" alt="Image" />
 			</div>
+			<span></span>
+			<div class="sport-logo__img img-2">
+				<img src="@img/icons/logo-3.svg" width="116" height="45" alt="Image" />
+			</div>
+			<span></span>
+			<div class="sport-logo__img img-3">
+				<img src="@img/icons/logo-1.png" width="145" height="65" alt="Image" />
+			</div>
 		</div>
-		<!-- <section data-fls-fullpage-section class="sport-section sport-info">
+		<section data-fls-fullpage-section class="sport-section sport-info">
 			<div class="sport-info__container">
 				<div class="sport-info__body">
 					<h1 data-fls-dynamic=".sport-info__texts,820.98,0" class="sport-info__title title-main">«Карпатська<br> Джерельна» Спорт</h1>
@@ -154,7 +158,7 @@
 										<source src="@video/sport-2.mp4" type="video/mp4" />
 									</video>
 								</div>
-								
+
 							</div>
 							<div class="sport-info__pagination swiper-pagination"></div>
 							<button type="button" class="sport-info__nav swiper-button-next">
@@ -163,17 +167,23 @@
 						</div>
 					</div>
 					<div class="sport-info__texts">
-						
+
 						<div class="sport-info__txt">
-							<p>Це вода, яка супроводжує кожен крок на шляху до мети,  підтримує у моменти напруги та допомагає  відновлюватися після важких викликів</p>
+							<p>Це вода, яка супроводжує кожен крок на шляху до мети, підтримує у моменти напруги та допомагає відновлюватися після важких викликів</p>
 							<p>Вона надихає не здаватися, боротися до кінця і щодня ставати кращою версією себе</p>
 							<p>Бо справжня сила починається зсередини — з чистоти, витривалості та рішучості</p>
 						</div>
 					</div>
 				</div>
 			</div>
-		</section> -->
-		<!-- <section data-fls-fullpage-section class="sport-section sport-strength">
+		</section>
+		<section data-fls-fullpage-section class="sport-section sport-strength">
+			<div class="sport-strength__bgs">
+				<span class="sport-strength__bg sport-strength__bg--1"></span>
+				<span class="sport-strength__bg sport-strength__bg--2"></span>
+				<span class="sport-strength__bg sport-strength__bg--3"></span>
+				<span class="sport-strength__bg sport-strength__bg--4"></span>
+			</div>
 			<div class="sport-strength__container">
 				<div class="sport-strength__wrapper">
 					<article class="sport-strength__card">
@@ -220,7 +230,7 @@
 					</article>
 				</div>
 			</div>
-		</section> -->
+		</section>
 		<section data-fls-fullpage-section class="sport-section sport-formats">
 			<div class="sport-formats__container">
 				<div class="sport-formats__body">
@@ -237,7 +247,7 @@
 											<p>Пляшка 1.0л</p>
 										</div>
 										<div class="sport-formats__txt">
-											<p>Для інтенсивних тренувань і довгих активностей, коли важливо підтримувати оптимальний баланс рідини впродовж тривалого часу lor</p>
+											<p>Для інтенсивних тренувань і довгих активностей, коли важливо підтримувати оптимальний баланс рідини впродовж тривалого часу</p>
 										</div>
 									</div>
 								</div>
@@ -258,7 +268,7 @@
 											<p>Пляшка 0.75л</p>
 										</div>
 										<div class="sport-formats__txt">
-											<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Culpa fugit, incidunt ipsum laudantium cupiditate nulla atque! Dolores dolorem voluptatibus obcaecati ullam, quod in asperiores sequi autem expedita sed, natus beatae.</p>
+											<p>333 Для інтенсивних тренувань і довгих активностей, коли важливо підтримувати оптимальний баланс рідини впродовж тривалого часу</p>
 										</div>
 									</div>
 								</div>
@@ -292,18 +302,58 @@
 							</div>
 						</div>
 						<div class="sport-formats__pagination swiper-pagination"></div>
-						<button type="button" class="sport-formats__nav swiper-button-prev">
-							<img src="@img/icons/arrow-prev.svg" width="31" height="13" alt="Image" />
-						</button>
-						<button type="button" class="sport-formats__nav swiper-button-next">
-							<img src="@img/icons/arrow-next.svg" width="31" height="13" alt="Image" />
-						</button>
+						<div class="sport-formats__navs">
+							<button type="button" class="sport-formats__nav swiper-button-prev">
+								<img src="@img/icons/arrow-prev.svg" width="31" height="13" alt="Image" />
+							</button>
+							<button type="button" class="sport-formats__nav swiper-button-next">
+								<img src="@img/icons/arrow-next.svg" width="31" height="13" alt="Image" />
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 		<section data-fls-fullpage-section class="sport-section sport-social">
-			4
+			<div class="sport-social__container">
+				<div class="sport-social__body">
+					<h2 class="sport-social__title title-sm">Підписуйтесь на наші соцмережі</h2>
+					<div data-fls-slider class="sport-social__slider swiper">
+						<div class="sport-social__wrapper swiper-wrapper">
+							<div class="sport-social__slide swiper-slide">
+								<a href="#" class="sport-social__card-link" aria-label="link to social">
+									<img src="@img/social-cards/social-card-1.png" width="200" height="262" alt="Image">
+								</a>
+							</div>
+							<div class="sport-social__slide swiper-slide">
+								<a href="#" class="sport-social__card-link" aria-label="link to social">
+									<img src="@img/social-cards/social-card-2.png" width="200" height="262" alt="Image">
+								</a>
+							</div>
+						</div>
+						<div class="sport-social__pagination swiper-pagination"></div>
+					</div>
+					<ul class="sport-social__links">
+						<li class="sport-social__link">
+							<a href="#" class="sport-social__btn btn-social" aria-label="link to social">
+								<div class="btn-social__ic">
+									<img src="@img/icons/insta.svg" width="54" height="54" alt="Image">
+								</div>
+								<span class="btn-social__t">Instagram</span>
+							</a>
+						</li>
+						<li class="sport-social__link">
+							<a href="#" class="sport-social__btn btn-social" aria-label="link to social">
+								<div class="btn-social__ic">
+									<img src="@img/icons/facebook.svg" width="54" height="54" alt="Image">
+								</div>
+								<span class="btn-social__t">Facebook</span>
+							</a>
+						</li>
+
+					</ul>
+				</div>
+			</div>
 		</section>
 		<div class="--fullpage-bullets">
 			<span class="--fullpage-bullet">

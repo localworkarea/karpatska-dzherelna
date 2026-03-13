@@ -60,8 +60,8 @@ export default {
 	images: {
 		svgsprite: false,
 		optimize: {
-			enable: true,
-			edithtml: true,
+			enable: false,
+			edithtml: false,
 			sizes: [600, 1200],
 			dpi: [],
 			attrignore: 'data-image-ignore',

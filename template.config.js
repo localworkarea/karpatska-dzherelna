@@ -2,7 +2,7 @@ import path from 'path';
 const projectName = path.basename(path.resolve()).toLowerCase()
 
 export default {
-	lang: 'ua', // Наразі тільки Українська
+	lang: 'ua',
 	vscode: {
 		settings: true,
 		snippets: true
@@ -54,17 +54,17 @@ export default {
 		devfiles: true,
 	},
 	fonts: {
-		iconsfont: false,
+		iconsfont: true,
 		download: false
 	},
 	images: {
 		svgsprite: false,
 		optimize: {
-			enable: false,
-			edithtml: false,
-			sizes: [600, 1200],
+			enable: true,
+			edithtml: true,
+			sizes: [500, 1200],
 			dpi: [],
-			attrignore: 'data-image-ignore',
+			attrignore: 'data-img-ignore',
 			modernformat: {
 				enable: true,
 				type: 'webp', // webp/avif
@@ -86,7 +86,7 @@ export default {
 			// Збирає в один JS та один CSS файли
 			// незалежно від налаштування
 			// styles -> codesplit,
-			enable: false,
+			enable: false, // отдельные файлы на каждой странице
 		},
 		react: false,
 		vue: false

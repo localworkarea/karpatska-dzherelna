@@ -49,9 +49,6 @@
 		// padding-inline: 0;
 		// max-width: 312px;
 	}
-	@media (max-width:$mobileSmall){
-		  
-	}
 		// .sport-logo__img
 		&__img {
 			flex: 1;
@@ -477,7 +474,7 @@
 		// .sport-strength__txt
 		&__txt {
 			padding-inline: 30px;
-			@media (min-width:$mobileSmall){
+			@media (min-width:toEm($mobileSmall)){
 				padding-inline: 20px;
 			}
 			p {

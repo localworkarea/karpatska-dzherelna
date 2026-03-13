@@ -1,14 +1,9 @@
 // Налаштування шаблону
 import templateConfig from '../template.config.js'
-// PostCSS
-import postcss from 'postcss';
 // TailWind
 import tailwindcss from '@tailwindcss/vite'
-// Групування медіа-запитів
-import combineMediaQuery from 'postcss-combine-media-query';
-import sortMediaQueries from 'postcss-sort-media-queries';
 // Оптимізація
-import cssnano from 'cssnano';
+import * as esbuild from 'esbuild';
 
 import { normalizePath } from 'vite'
 import { globSync } from 'glob'
@@ -24,7 +19,6 @@ const pathPrefix = isWp ? `src/components/wordpress/fls-theme/build/${isAssets}`
 const pathToFiles = `${pathPrefix}css/*.css`
 const pathToDev = `${pathPrefix}css/dev`
 const pathToOptimize = `${pathPrefix}css`
-
 export const stylesPlugins = [
 	// Підключення плагіну Tailwind
 	...((templateConfig.styles.tailwindcss) ? [tailwindcss()] : []),
@@ -45,29 +39,6 @@ export const stylesPlugins = [
 					})
 					fs.writeFileSync(cssFile, content, 'utf-8');
 				});
-			}
-		}
-	}] : []),
-	// Групування Media-запитів
-	...((isProduction) ? [{
-		name: "css-combine-media-query",
-		apply: 'build',
-		enforce: 'pre',
-		closeBundle: {
-			order: 'pre',
-			handler: async () => {
-				const cssFiles = globSync(pathToOptimize)
-				cssFiles.forEach((cssFile) => {
-					fs.readdirSync(cssFile).filter((filename) => /\.css$/.test(filename)).map((filename) => combineMediaQueries(`${cssFile}/${filename}`))
-				});
-				function combineMediaQueries(filePath) {
-					const css = fs.readFileSync(filePath, 'utf8');
-					const devFile = postcss()
-						.use(combineMediaQuery())
-						.use(sortMediaQueries({ sort: 'desktop-first' }))
-						.process(css, { from: filePath });
-					fs.writeFileSync(filePath, devFile.css, 'utf8');
-				}
 			}
 		}
 	}] : []),
@@ -124,8 +95,12 @@ export const stylesPlugins = [
 						templateConfig.styles.codesplit ? devCssFile = devCssFile.replace('/css/', '/css/dev/') : null
 						fs.copyFileSync(cssFile, devCssFile)
 						const cssCode = fs.readFileSync(cssFile, 'utf8');
-						const cssFileMin = await postcss().use(cssnano()).process(cssCode, { from: cssFile });
-						fs.writeFileSync(cssFile, cssFileMin.css, 'utf8');
+						const cssFileMin = await esbuild.transform(cssCode, {
+							loader: 'css',
+							minify: true,
+							legalComments: 'none',
+						});
+						fs.writeFileSync(cssFile, cssFileMin.code, 'utf8');
 					});
 					logger('_IMG_CSS_DEV_DONE')
 				}

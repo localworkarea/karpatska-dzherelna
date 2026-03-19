@@ -1,5 +1,32 @@
-import "./main.min.js";
-import { i as isMobile } from "./common.min.js";
+(function polyfill() {
+  const relList = document.createElement("link").relList;
+  if (relList && relList.supports && relList.supports("modulepreload")) return;
+  for (const link of document.querySelectorAll('link[rel="modulepreload"]')) processPreload(link);
+  new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+      if (mutation.type !== "childList") continue;
+      for (const node of mutation.addedNodes) if (node.tagName === "LINK" && node.rel === "modulepreload") processPreload(node);
+    }
+  }).observe(document, {
+    childList: true,
+    subtree: true
+  });
+  function getFetchOpts(link) {
+    const fetchOpts = {};
+    if (link.integrity) fetchOpts.integrity = link.integrity;
+    if (link.referrerPolicy) fetchOpts.referrerPolicy = link.referrerPolicy;
+    if (link.crossOrigin === "use-credentials") fetchOpts.credentials = "include";
+    else if (link.crossOrigin === "anonymous") fetchOpts.credentials = "omit";
+    else fetchOpts.credentials = "same-origin";
+    return fetchOpts;
+  }
+  function processPreload(link) {
+    if (link.ep) return;
+    link.ep = true;
+    const fetchOpts = getFetchOpts(link);
+    fetch(link.href, fetchOpts);
+  }
+})();
 function isObject$1(obj) {
   return obj !== null && typeof obj === "object" && "constructor" in obj && obj.constructor === Object;
 }
@@ -394,16 +421,6 @@ function elementParents(el, selector) {
     parent = parent.parentElement;
   }
   return parents;
-}
-function elementTransitionEnd(el, callback) {
-  function fireCallBack(e) {
-    if (e.target !== el) return;
-    callback.call(el, e);
-    el.removeEventListener("transitionend", fireCallBack);
-  }
-  if (callback) {
-    el.addEventListener("transitionend", fireCallBack);
-  }
 }
 function elementOuterSize(el, size, includeMargins) {
   const window2 = getWindow();
@@ -4830,94 +4847,6 @@ function effectTarget(effectParams, slideEl) {
   }
   return transformEl;
 }
-function effectVirtualTransitionEnd({
-  swiper,
-  duration,
-  transformElements,
-  allSlides
-}) {
-  const {
-    activeIndex
-  } = swiper;
-  if (swiper.params.virtualTranslate && duration !== 0) {
-    let eventTriggered = false;
-    let transitionEndTarget;
-    {
-      transitionEndTarget = transformElements;
-    }
-    transitionEndTarget.forEach((el) => {
-      elementTransitionEnd(el, () => {
-        if (eventTriggered) return;
-        if (!swiper || swiper.destroyed) return;
-        eventTriggered = true;
-        swiper.animating = false;
-        const evt = new window.CustomEvent("transitionend", {
-          bubbles: true,
-          cancelable: true
-        });
-        swiper.wrapperEl.dispatchEvent(evt);
-      });
-    });
-  }
-}
-function EffectFade({
-  swiper,
-  extendParams,
-  on
-}) {
-  extendParams({
-    fadeEffect: {
-      crossFade: false
-    }
-  });
-  const setTranslate2 = () => {
-    const {
-      slides
-    } = swiper;
-    const params = swiper.params.fadeEffect;
-    for (let i = 0; i < slides.length; i += 1) {
-      const slideEl = swiper.slides[i];
-      const offset = slideEl.swiperSlideOffset;
-      let tx = -offset;
-      if (!swiper.params.virtualTranslate) tx -= swiper.translate;
-      let ty = 0;
-      if (!swiper.isHorizontal()) {
-        ty = tx;
-        tx = 0;
-      }
-      const slideOpacity = swiper.params.fadeEffect.crossFade ? Math.max(1 - Math.abs(slideEl.progress), 0) : 1 + Math.min(Math.max(slideEl.progress, -1), 0);
-      const targetEl = effectTarget(params, slideEl);
-      targetEl.style.opacity = slideOpacity;
-      targetEl.style.transform = `translate3d(${tx}px, ${ty}px, 0px)`;
-    }
-  };
-  const setTransition2 = (duration) => {
-    const transformElements = swiper.slides.map((slideEl) => getSlideTransformEl(slideEl));
-    transformElements.forEach((el) => {
-      el.style.transitionDuration = `${duration}ms`;
-    });
-    effectVirtualTransitionEnd({
-      swiper,
-      duration,
-      transformElements,
-      allSlides: true
-    });
-  };
-  effectInit({
-    effect: "fade",
-    swiper,
-    on,
-    setTranslate: setTranslate2,
-    setTransition: setTransition2,
-    overwriteParams: () => ({
-      slidesPerView: 1,
-      slidesPerGroup: 1,
-      watchSlidesProgress: true,
-      spaceBetween: 0,
-      virtualTranslate: !swiper.params.cssMode
-    })
-  });
-}
 function createShadow(suffix, slideEl, side) {
   const shadowClass = `swiper-slide-shadow${side ? `-${side}` : ""}${` swiper-slide-shadow-${suffix}`}`;
   const shadowContainer = getSlideTransformEl(slideEl);
@@ -5028,7 +4957,8 @@ function initSliders() {
       spaceBetween: 0,
       speed: 800,
       initialSlide: 1,
-      //loop: true,
+      loop: true,
+      loopAdditionalSlides: true,
       //preloadImages: false,
       //lazy: true,
       // effect: 'cards',
@@ -5102,19 +5032,27 @@ function initSliders() {
       });
     });
   }
-  const sportFormatsMQ = window.matchMedia("(max-width: 820.98px)");
-  let sportFormatsSwiper;
-  function initSportFormatsSlider() {
-    if (sportFormatsSwiper) sportFormatsSwiper.destroy(true, true);
-    sportFormatsSwiper = new Swiper(".sport-formats__slider", {
-      modules: [Navigation, Pagination, EffectFade],
+  if (document.querySelector(".sport-formats__slider")) {
+    let updateExtraClasses2 = function(swiper) {
+      const slides = swiper.slides;
+      const total = slides.length;
+      slides.forEach((slide2) => {
+        slide2.classList.remove("swiper-slide-prev-prev", "swiper-slide-next-next");
+      });
+      const activeIndex = swiper.activeIndex;
+      const prevPrevIndex = (activeIndex - 2 + total) % total;
+      const nextNextIndex = (activeIndex + 2) % total;
+      slides[prevPrevIndex].classList.add("swiper-slide-prev-prev");
+      slides[nextNextIndex].classList.add("swiper-slide-next-next");
+    };
+    var updateExtraClasses = updateExtraClasses2;
+    new Swiper(".sport-formats__slider", {
+      modules: [Navigation, Pagination],
       slidesPerView: 1,
+      initialSlide: 1,
       speed: 700,
-      effect: sportFormatsMQ.matches ? "slide" : "fade",
-      // loop: true,
-      // fadeEffect: {
-      // crossFade: true
-      // },
+      loop: true,
+      loopAdditionalSlides: true,
       pagination: {
         el: ".sport-formats__slider .swiper-pagination",
         clickable: true
@@ -5129,46 +5067,43 @@ function initSliders() {
           spaceBetween: 20
         },
         820: {
-          spaceBetween: 0
+          spaceBetween: 10
+        }
+      },
+      on: {
+        init(swiper) {
+          updateExtraClasses2(swiper);
+        },
+        slideChange(swiper) {
+          updateExtraClasses2(swiper);
         }
       }
     });
   }
-  initSportFormatsSlider();
-  sportFormatsMQ.addEventListener("change", initSportFormatsSlider);
-  const sportSocialMQ = window.matchMedia("(max-width: 768.98px)");
-  let sportSocialSwiper;
-  function initSportSocialSlider() {
-    if (sportSocialMQ.matches) {
-      if (!sportSocialSwiper) {
-        sportSocialSwiper = new Swiper(".sport-social__slider", {
-          modules: [Navigation, Pagination],
-          observer: true,
-          observeParents: true,
-          speed: 500,
-          slidesPerView: 1.5,
-          spaceBetween: 20,
-          pagination: {
-            el: ".sport-social__slider .swiper-pagination",
-            clickable: true
-          },
-          navigation: {
-            prevEl: ".sport-social__slider .swiper-button-prev",
-            nextEl: ".sport-social__slider .swiper-button-next"
-          }
-        });
-      }
-    } else {
-      if (sportSocialSwiper) {
-        sportSocialSwiper.destroy(true, true);
-        sportSocialSwiper = null;
-      }
-    }
-  }
-  initSportSocialSlider();
-  sportSocialMQ.addEventListener("change", initSportSocialSlider);
 }
 document.querySelector("[data-fls-slider]") ? window.addEventListener("load", initSliders) : null;
+const isMobile = { Android: function() {
+  return navigator.userAgent.match(/Android/i);
+}, BlackBerry: function() {
+  return navigator.userAgent.match(/BlackBerry/i);
+}, iOS: function() {
+  return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+}, Opera: function() {
+  return navigator.userAgent.match(/Opera Mini/i);
+}, Windows: function() {
+  return navigator.userAgent.match(/IEMobile/i);
+}, any: function() {
+  return isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows();
+} };
+function addLoadedAttr() {
+  if (!document.documentElement.hasAttribute("data-fls-preloader-loading")) {
+    window.addEventListener("load", function() {
+      setTimeout(function() {
+        document.documentElement.setAttribute("data-fls-loaded", "");
+      }, 0);
+    });
+  }
+}
 class FullPage {
   constructor(element, options) {
     let config = {
@@ -5701,6 +5636,7 @@ if (document.querySelector("[data-fls-fullpage]")) {
       checkWidth();
     }, 50);
   };
+  var initFullpage2 = initFullpage, destroyFullpage2 = destroyFullpage, checkWidth2 = checkWidth, handleResize2 = handleResize;
   const fullpageElement = document.querySelector("[data-fls-fullpage]");
   const breakpoint = parseFloat(fullpageElement.dataset.flsFullpageBreakpoint) || null;
   let fpInstance = null;
@@ -5845,3 +5781,73 @@ if (isMobile.any()) {
     });
   }
 }
+addLoadedAttr();
+function initSmallBanner() {
+  const banners = document.querySelectorAll(".banner-sm");
+  if (!banners.length) return;
+  banners.forEach((banner) => {
+    const closeBtn = banner.querySelector(".banner-sm__close");
+    if (!closeBtn) return;
+    closeBtn.addEventListener("click", () => {
+      banner.classList.add("--hidden");
+    });
+  });
+}
+document.addEventListener("DOMContentLoaded", initSmallBanner);
+function initBigBannerAnimation() {
+  const bigBanner = document.querySelector(".banner-big");
+  const smallBanner = document.querySelector(".banner-sm");
+  if (!bigBanner || !smallBanner) return;
+  let timer;
+  const startAnimation = () => {
+    const isMobile2 = window.matchMedia("(max-width: 51.311em)").matches;
+    const bigRect = bigBanner.getBoundingClientRect();
+    const smallRect = smallBanner.getBoundingClientRect();
+    let translateX;
+    let translateY;
+    let scaleX;
+    let scaleY;
+    let duration;
+    if (isMobile2) {
+      duration = 650;
+      const scale = smallRect.width / bigRect.width;
+      scaleX = scale;
+      scaleY = scale;
+      translateX = smallRect.left - bigRect.left;
+      translateY = smallRect.top - bigRect.top;
+      bigBanner.style.transformOrigin = "top left";
+    } else {
+      duration = 900;
+      scaleX = smallRect.width / bigRect.width;
+      scaleY = smallRect.height / bigRect.height;
+      translateX = smallRect.right - bigRect.right;
+      translateY = smallRect.bottom - bigRect.bottom;
+      bigBanner.style.transformOrigin = "bottom right";
+    }
+    const fadeDelay = duration * 0.5;
+    bigBanner.style.transition = `
+			transform ${duration}ms ease,
+			opacity 300ms linear
+		`;
+    bigBanner.style.pointerEvents = "none";
+    requestAnimationFrame(() => {
+      bigBanner.style.transform = `
+				translate(${translateX}px, ${translateY}px)
+				scale(${scaleX}, ${scaleY})
+			`;
+    });
+    setTimeout(() => {
+      bigBanner.style.opacity = "0";
+    }, fadeDelay);
+    setTimeout(() => {
+      bigBanner.style.visibility = "hidden";
+      bigBanner.classList.add("--hidden");
+    }, duration);
+  };
+  timer = setTimeout(startAnimation, 3e3);
+  window.addEventListener("resize", () => {
+    clearTimeout(timer);
+    timer = setTimeout(startAnimation, 3e3);
+  });
+}
+document.addEventListener("DOMContentLoaded", initBigBannerAnimation);

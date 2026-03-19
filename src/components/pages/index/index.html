@@ -1,10 +1,13 @@
 <script type="module" src="@components/pages/index/index.js"></script>
 <link rel="stylesheet" href="@components/pages/index/index.scss" />
 
-<main class="page page--sport">
+<main style="opacity: 0;" class="page page--sport">
 	<div data-fls-fullpage data-fls-fullpage-breakpoint="1000.98" data-fls-fullpage-bullets class="sport-wrapper">
 		<div class="sport-logo">
-			<div class="sport-logo__img img-1">
+			<div class="sport-logo__main">
+				<img src="@img/icons/logos.png" width="526" height="82" alt="Image">
+			</div>
+			<!-- <div class="sport-logo__img img-1">
 				<img src="@img/icons/logo-2.png" width="91" height="65" alt="Image" />
 			</div>
 			<span></span>
@@ -14,33 +17,25 @@
 			<span></span>
 			<div class="sport-logo__img img-3">
 				<img src="@img/icons/logo-1.png" width="145" height="65" alt="Image" />
-			</div>
+			</div> -->
 		</div>
 		<section data-fls-fullpage-section class="sport-section sport-info">
 			<div class="sport-info__container">
 				<div class="sport-info__body">
-					<h1 data-fls-dynamic=".sport-info__texts,820.98,0" class="sport-info__title title-main">«Карпатська<br> Джерельна» Спорт</h1>
+					<h1 data-fls-dynamic=".sport-info__texts,820.98,0" class="sport-info__title title-main">Карпатська Джерельна Спорт</h1>
 					<div class="sport-info__swiper">
 						<div data-fls-slider class="sport-info__slider swiper">
 							<button type="button" class="sport-info__nav swiper-button-prev">
 								<img src="@img/icons/arrow-prev.svg" width="31" height="13" alt="Image" />
 							</button>
 							<div class="sport-info__wrapper swiper-wrapper">
-								<div class="sport-info__slide swiper-slide">
-									<video class="sport-info__video" muted playsinline poster="@img/posters/poster-3.jpg" preload="metadata">
-										<source src="@video/sport-2.mp4" type="video/mp4" />
-									</video>
-								</div>
+							
 								<div class="sport-info__slide swiper-slide">
 									<video class="sport-info__video" muted playsinline poster="@img/posters/poster-1.jpg" preload="metadata">
 										<source src="@video/sport-2.mp4" type="video/mp4" />
 									</video>
 								</div>
-								<div class="sport-info__slide swiper-slide">
-									<video class="sport-info__video" muted playsinline poster="@img/posters/poster-2.jpg" preload="metadata">
-										<source src="@video/sport-2.mp4" type="video/mp4" />
-									</video>
-								</div>
+							
 
 							</div>
 							<div class="sport-info__pagination swiper-pagination"></div>
@@ -52,9 +47,12 @@
 					<div class="sport-info__texts">
 
 						<div class="sport-info__txt">
-							<p>Це вода, яка супроводжує кожен крок на шляху до мети, підтримує у моменти напруги та допомагає відновлюватися після важких викликів</p>
-							<p>Вона надихає не здаватися, боротися до кінця і щодня ставати кращою версією себе</p>
-							<p>Бо справжня сила починається зсередини — з чистоти, витривалості та рішучості</p>
+							<p>
+								Це вода, яка підсилює кожен ваш крок на шляху до мети. Підтримує у моменти напруги та допомагає відновити сили після найскладніших викликів. З нею легше тримати темп, не здаватися і щодня ставати кращою версією себе.
+							</p>
+							<p>
+								Бо справжня сила — це не про м’язи. Вона починається зсередини: з чистоти, витривалості та рішучості.
+							</p>
 						</div>
 					</div>
 				</div>
@@ -117,30 +115,9 @@
 		<section data-fls-fullpage-section class="sport-section sport-formats">
 			<div class="sport-formats__container">
 				<div class="sport-formats__body">
-					<h1 class="sport-formats__title title-main">Зручний об’єм для кожного</h1>
+					<h1 class="sport-formats__title title-main">ФОРМАТИ ДЛЯ ВАШОГО ТЕМПУ</h1>
 					<div data-fls-slider class="sport-formats__slider swiper">
 						<div class="sport-formats__wrapper swiper-wrapper">
-							<div class="sport-formats__slide swiper-slide">
-								<div class="sport-formats__info">
-									<div class="sport-formats__img imgs">
-										<img src="@img/bottle/bottle-1.png" width="196" height="320" alt="Image">
-									</div>
-									<div class="sport-formats__texts">
-										<div class="sport-formats__title-sl">
-											<p>Пляшка 1.0л</p>
-										</div>
-										<div class="sport-formats__txt">
-											<p>Для інтенсивних тренувань і довгих активностей, коли важливо підтримувати оптимальний баланс рідини впродовж тривалого часу</p>
-										</div>
-									</div>
-								</div>
-								<div class="sport-formats__img-2 imgs">
-									<img src="@img/bottle/bottle-2.png" width="196" height="320" alt="Image">
-								</div>
-								<div class="sport-formats__img-3 imgs">
-									<img src="@img/bottle/bottle-3.png" width="196" height="320" alt="Image">
-								</div>
-							</div>
 							<div class="sport-formats__slide swiper-slide">
 								<div class="sport-formats__info">
 									<div class="sport-formats__img imgs">
@@ -148,18 +125,30 @@
 									</div>
 									<div class="sport-formats__texts">
 										<div class="sport-formats__title-sl">
-											<p>Пляшка 0.75л</p>
+											<p>Карпатська<br> Джерельна<br> Спорт 0.75л</p>
 										</div>
-										<div class="sport-formats__txt">
-											<p>333 Для інтенсивних тренувань і довгих активностей, коли важливо підтримувати оптимальний баланс рідини впродовж тривалого часу</p>
+										<div class="sport-formats__txt ">
+											<p>Для тренувань середньої інтенсивності. Оптимальний об'єм, щоб сил вистачило від першої розминки до фінального підходу.
+												<br><br>
+												* Ексклюзивно в мережі «АТБ»
+											</p>
 										</div>
 									</div>
 								</div>
-								<div class="sport-formats__img-2 imgs">
-									<img src="@img/bottle/bottle-3.png" width="196" height="320" alt="Image">
-								</div>
-								<div class="sport-formats__img-3 imgs">
-									<img src="@img/bottle/bottle-1.png" width="196" height="320" alt="Image">
+							</div>
+							<div class="sport-formats__slide swiper-slide">
+								<div class="sport-formats__info">
+									<div class="sport-formats__img imgs">
+										<img src="@img/bottle/bottle-1.png" width="196" height="320" alt="Image">
+									</div>
+									<div class="sport-formats__texts">
+										<div class="sport-formats__title-sl">
+											<p>Карпатська<br> Джерельна<br> Спорт 1л</p>
+										</div>
+										<div class="sport-formats__txt">
+											<p>Для тривалих дистанцій та інтенсивного кардіо. Максимум води, щоб витривалість не згасала навіть на межі можливостей.</p>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="sport-formats__slide swiper-slide">
@@ -169,18 +158,62 @@
 									</div>
 									<div class="sport-formats__texts">
 										<div class="sport-formats__title-sl">
-											<p>Пляшка 0.5л</p>
+											<p>Карпатська<br> Джерельна<br> Спорт 0.5л</p>
 										</div>
 										<div class="sport-formats__txt ">
-											<p>Lorem Для інтенсивних тренувань і довгих активностей, коли важливо підтримувати оптимальний баланс рідини впродовж тривалого часу</p>
+											<p>Для легких тренувань і прогулянок. Коли достатньо кількох ковтків, щоб освіжитись і рухатись далі.
+											</p>
 										</div>
 									</div>
 								</div>
-								<div class="sport-formats__img-2 imgs">
-									<img src="@img/bottle/bottle-1.png" width="196" height="320" alt="Image">
+							</div>
+							<div class="sport-formats__slide swiper-slide">
+								<div class="sport-formats__info">
+									<div class="sport-formats__img imgs">
+										<img src="@img/bottle/bottle-2.png" width="196" height="320" alt="Image">
+									</div>
+									<div class="sport-formats__texts">
+										<div class="sport-formats__title-sl">
+											<p>Карпатська<br> Джерельна<br> Спорт 0.75л</p>
+										</div>
+										<div class="sport-formats__txt ">
+											<p>Для тренувань середньої інтенсивності. Оптимальний об'єм, щоб сил вистачило від першої розминки до фінального підходу.
+												<br><br>
+												* Ексклюзивно в мережі «АТБ»
+											</p>
+										</div>
+									</div>
 								</div>
-								<div class="sport-formats__img-3 imgs">
-									<img src="@img/bottle/bottle-2.png" width="196" height="320" alt="Image">
+							</div>
+							<div class="sport-formats__slide swiper-slide">
+								<div class="sport-formats__info">
+									<div class="sport-formats__img imgs">
+										<img src="@img/bottle/bottle-1.png" width="196" height="320" alt="Image">
+									</div>
+									<div class="sport-formats__texts">
+										<div class="sport-formats__title-sl">
+											<p>Карпатська<br> Джерельна<br> Спорт 1л</p>
+										</div>
+										<div class="sport-formats__txt">
+											<p>Для тривалих дистанцій та інтенсивного кардіо. Максимум води, щоб витривалість не згасала навіть на межі можливостей.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="sport-formats__slide swiper-slide">
+								<div class="sport-formats__info">
+									<div class="sport-formats__img imgs">
+										<img src="@img/bottle/bottle-3.png" width="196" height="320" alt="Image">
+									</div>
+									<div class="sport-formats__texts">
+										<div class="sport-formats__title-sl">
+											<p>Карпатська<br> Джерельна<br> Спорт 0.5л</p>
+										</div>
+										<div class="sport-formats__txt ">
+											<p>Для легких тренувань і прогулянок. Коли достатньо кількох ковтків, щоб освіжитись і рухатись далі.
+											</p>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -200,7 +233,7 @@
 		<section data-fls-fullpage-section class="sport-section sport-social">
 			<div class="sport-social__container">
 				<div class="sport-social__body">
-					<h2 class="sport-social__title title-sm">Підписуйтесь на наші соцмережі</h2>
+					<h2 class="sport-social__title title-sm">ДОЛУЧАЙТЕСЬ ДО СПІЛЬНОТИ АКТИВНИХ</h2>
 					<div data-fls-slider class="sport-social__slider swiper">
 						<div class="sport-social__wrapper swiper-wrapper">
 							<div class="sport-social__slide swiper-slide">

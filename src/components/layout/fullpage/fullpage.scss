@@ -103,6 +103,7 @@ body {
 		.--fullpage-bullet-text {
 			opacity: 1;
 			pointer-events: auto;
+			white-space: nowrap;
 		}
 	}
 	& .--fullpage-bullet-wrapper {
